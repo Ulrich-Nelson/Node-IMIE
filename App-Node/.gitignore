@@ -1,4 +1,5 @@
 /node_modules
+/Projet
 *.log
 *.pid
 test/child
