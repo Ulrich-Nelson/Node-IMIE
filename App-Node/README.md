@@ -44,4 +44,10 @@ https://www.npmjs.com/package/pm2
 https://www.npmjs.com/package/mongoose
 
 
+https://www.npmjs.com/package/axios
+https://www.npmjs.com/package/mocha
+https://www.npmjs.com/package/cheerio
+
+
+
 https://mongoosejs.com/docs/guide.html

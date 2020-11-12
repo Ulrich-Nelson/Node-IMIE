@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-/*mongoose.connect('mongodb+srv://zoubida:zoubida@cluster0.z40hd.mongodb.net/chefclub?retryWrites=true&w=majority', {*/
+/*mongoose.connect('mongodb+srv://Nelson:kiEIAi5Xp2SYu7Yj@cluster0.cdevd.mongodb.net/ChefClub?retryWrites=true&w=majority', {*/
 // mongoose.connect('mongodb://localhost/chefclub', {
-mongoose.connect('mongodb://127.0.0.1/MYData', {
+mongoose.connect('mongodb://localhost/MYData', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -9,7 +9,7 @@ mongoose.connect('mongodb://127.0.0.1/MYData', {
 });
 
 mongoose.connection.on('connected', () => {
-    console.log('MongoDb est bien lancé');
+    console.log('MongoDB est bien lancé........');
 })
 
 module.exports = mongoose;

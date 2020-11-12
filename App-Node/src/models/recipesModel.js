@@ -10,6 +10,9 @@ const Recipes = new Schema({
         required: true,
         lowercase: true,
     },
+    image: {
+        type: String,
+    },
     preparationTime: {
         type: Number,
         required: true,

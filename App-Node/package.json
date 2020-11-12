@@ -14,5 +14,10 @@
         "express": "^4.17.1",
         "mongoose": "^5.10.13",
         "pm2": "^4.5.0"
+    },
+    "devDependencies": {
+        "axios": "^0.21.0",
+        "cheerio": "^1.0.0-rc.3",
+        "mocha": "^8.2.1"
     }
 }

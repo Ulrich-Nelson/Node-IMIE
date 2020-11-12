@@ -9,14 +9,14 @@ const route = require('./src/routes');
  * Zone de test
  */
 
-const Recipes = require('./src/models/recipesModel');
+/*const Recipes = require('./src/models/recipesModel');
 let newRecipe = new Recipes();
-newRecipe.title = 'Bob';
+newRecipe.title = 'Nelson vient de faire un test';
 newRecipe.preparationTime = 30;
 newRecipe.numberPeople = 3;
 newRecipe.step = [
     'Couper du fromage',
-    'Couper du fromage',
+    'Couper du <w>',
     'Couper du fromage'
 ];
 newRecipe.ingredients = [{
@@ -26,7 +26,12 @@ newRecipe.ingredients = [{
 }]
 newRecipe.zoubida = 8
 
-newRecipe.save()
+//newRecipe.save()*/
+
+const scrap = require('./src/scraping');
+
+scrap.allRecipes();
+
 
 /**
  * End Zone de test
