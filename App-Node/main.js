@@ -15,6 +15,7 @@ global.bdd = require('./src/models');
  * Months
  * Day of Week
  */
+
 new cron('0 * * */30 * *', () => {
     scrap.allRecipes();
     console.log('run tache cron');
