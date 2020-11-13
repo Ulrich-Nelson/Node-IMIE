@@ -42,12 +42,13 @@ $ pm2 start app.js
 
 https://www.npmjs.com/package/pm2
 https://www.npmjs.com/package/mongoose
-
-
+---------------------------------------------------
 https://www.npmjs.com/package/axios
 https://www.npmjs.com/package/mocha
 https://www.npmjs.com/package/cheerio
-
+https://www.npmjs.com/package/body-parser
+https://www.npmjs.com/package/cron
 
 
 https://mongoosejs.com/docs/guide.html
+https://studio3t.com/knowledge-base/wp-content/uploads/mongodb-document-structure.png

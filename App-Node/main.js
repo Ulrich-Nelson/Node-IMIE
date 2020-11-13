@@ -1,49 +1,31 @@
-const express = require('express'); // Chargement Express
-const app = express(); // Instance Express
+const express = require('express'),
+    cron = require('cron').CronJob,
+    bodyParser = require('body-parser');
+
+const app = express(),
+    route = require('./src/routes'),
+    scrap = require('./src/scraping');
+
 global.bdd = require('./src/models');
-const route = require('./src/routes');
-
-
 
 /**
- * Zone de test
+ * Seconds
+ * Minutes
+ * Hours
+ * Months
+ * Day of Week
  */
-
-/*const Recipes = require('./src/models/recipesModel');
-let newRecipe = new Recipes();
-newRecipe.title = 'Nelson vient de faire un test';
-newRecipe.preparationTime = 30;
-newRecipe.numberPeople = 3;
-newRecipe.step = [
-    'Couper du fromage',
-    'Couper du <w>',
-    'Couper du fromage'
-];
-newRecipe.ingredients = [{
-    name: 'Banane',
-    quantity: 2,
-    gramming: 'g',
-}]
-newRecipe.zoubida = 8
-
-//newRecipe.save()*/
-
-const scrap = require('./src/scraping');
-
-scrap.allRecipes();
-
-
-/**
- * End Zone de test
- */
-
-
+new cron('0 * * */30 * *', () => {
+    scrap.allRecipes();
+    console.log('run tache cron');
+}).start();
 
 const port = process.env.PORT || 8020; // Port ecoute du server
 const www = process.env.WWW || './public'; // Point racine pour le dossier public
 
 // Middelware
 app.use(express.static(www)); // Emplacement du dossier public dans express
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(route);
 
