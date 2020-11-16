@@ -5,44 +5,47 @@ const url = 'https://www.chefclub.tv';
 const Recipes = require('../models/recipesModel');
 
 module.exports.allRecipes = () => {
-    axios.get(url + '/fr/c/recettes')
-        .then((html) => {
+    const elements = ['original', 'daily', 'light-and-fun', 'kids', 'cocktails'];
+    for (let k = 0; k < elements.length; k++)
+        axios.get(url + '/fr/recettes/' + elements[k])
+            .then((html) => {
 
-            let listRecipes = []
+                let listRecipes = []
 
-            const $ = cheerio.load(html.data);
-            // handle success
-            const recipes = $('#recipes li').length;
+                const $ = cheerio.load(html.data);
+                // handle success
+                const recipes = $('#recipes li').length;
 
-            for (let i = 0; i < recipes; i++)
-                if ($('#recipes li').eq(i).find('h3').text().length !== 0)
-                    listRecipes.push({
-                        title: $('#recipes li').eq(i).find('h3').text(),
-                        link: $('#recipes li').eq(i).find('a').attr('href'),
-                        image: $('#recipes li').eq(i).find('div.thumbnail').css('background-image').split("'")[1],
-                        numberPeople: parseInt($('#recipes li').eq(i).find('div.details').find('li').eq(0).text().split(' ')[1]),
-                        preparationTime: parseInt($('#recipes li').eq(i).find('div.details').find('li').eq(1).text().split(' ')[1]),
-                    })
+                for (let i = 0; i < recipes; i++)
+                    if ($('#recipes li').eq(i).find('h3').text().length !== 0)
+                        listRecipes.push({
+                            type: elements[k],
+                            title: $('#recipes li').eq(i).find('h3').text(),
+                            link: $('#recipes li').eq(i).find('a').attr('href'),
+                            image: $('#recipes li').eq(i).find('div.thumbnail').css('background-image').split("'")[1],
+                            numberPeople: parseInt($('#recipes li').eq(i).find('div.details').find('li').eq(0).text().split(' ')[1]),
+                            preparationTime: parseInt($('#recipes li').eq(i).find('div.details').find('li').eq(1).text().split(' ')[1]),
+                        })
 
-            Recipes.deleteMany({}, (err) => console.log((err) ? err : 'The data of the recipe collection is deleted'));
+                Recipes.deleteMany({}, (err) => console.log((err) ? err : 'The data of the recipe collection is deleted'));
 
-            listRecipes.map(async (recipe) => {
-                detailRecipe = await this.detailRecipe(recipe)
-                recipe.ingredients = detailRecipe.ingredients;
-                recipe.step = detailRecipe.steps;
+                listRecipes.map(async (recipe) => {
+                    detailRecipe = await this.detailRecipe(recipe)
+                    recipe.ingredients = detailRecipe.ingredients;
+                    recipe.step = detailRecipe.steps;
 
-                Recipes.create(recipe);
+                    Recipes.create(recipe);
+                })
             })
-            // console.log(listRecipes);
-        })
-        .catch((error) => {
-            // handle error
-            console.log(error);
-        });
+            .catch((error) => {
+                // handle error
+                console.log(error);
+            });
 }
 
 module.exports.detailRecipe = (recipe) => {
     return new Promise((resolve, reject) => {
+        console.log(url + recipe.link);
         axios.get(url + recipe.link)
             .then((html) => {
 
@@ -62,8 +65,8 @@ module.exports.detailRecipe = (recipe) => {
 
             })
             .catch((error) => {
-                // handle error
-                console.log(error);
+                // console.log(error);
+                reject({ error: error })
             });
     })
 }

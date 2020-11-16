@@ -15,7 +15,6 @@ global.bdd = require('./src/models');
  * Months
  * Day of Week
  */
-
 new cron('0 * * */30 * *', () => {
     scrap.allRecipes();
     console.log('run tache cron');
@@ -39,3 +38,5 @@ app.get('*', (req, res) => {
 
 // Run serve
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));
+//export de app pour faire les tests
+module.exports = app;
